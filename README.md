@@ -30,7 +30,7 @@ smokeping_home_dir=/opt/smokeping
 cd $smokeping_home_dir/etc
 cp -rf /tmp/idc_ping_monitor/smokeping/location/* ./
 ```
-监测点主要由国内的三大运营商的IP站点组成，也可以自定义需要检测的站点，更多的ip地址，可以参考 <http://ip.yqie.com/china.aspx> 
+监测点主要由国内的三大运营商的IP站点组成，也可以自定义需要检测的站点
 
 启动：
 
@@ -90,7 +90,7 @@ touch /tmp/smoking_pushgateway.log
 'data_dir' : '/opt/smokeping/htdocs/data'                # smokeping rrd文件的存放地址  
 ```
 
-配置crontab
+配置crontab计划任务
 
 ```
 crontab -e 
