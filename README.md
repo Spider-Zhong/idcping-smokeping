@@ -5,7 +5,7 @@ smokeping：主要负责采集数据
 prometheus：主要负责存储数据  
 grafana：主要负责展现数据  
 
-测试环境: python2.7 pip  模块requests rrdtool 
+使用环境: Centos7 python2.7
 > 二、使用
 
 ```
