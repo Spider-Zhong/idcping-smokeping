@@ -5,6 +5,7 @@ smokeping：主要负责采集数据
 prometheus：主要负责存储数据  
 grafana：主要负责展现数据  
 
+测试环境: python2.7 pip  模块requests rrdtool 
 > 二、使用
 
 ```
@@ -38,7 +39,41 @@ bash /tmp/smokeping.sh
 ```
 
 
->> （2）prometheus
+>> （2）安装prometheus pushgateway
+```
+curl -s https://packagecloud.io/install/repositories/prometheus-rpm/release/script.rpm.sh | sudo bash
+yum -y install prometheus2 pushgateway
+systemctl status prometheus
+systemctl start prometheus
+systemctl start pushgateway
+firewall-cmd --zone=public --add-port=9090/tcp
+firewall-cmd --zone=public --add-port=9091/tcp
+```
+
+
+配置prometheus.yml
+
+```
+vim /etc/prometheus/prometheus.yml
+
+global:
+  scrape_interval:     60s
+  evaluation_interval: 60s
+ 
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          instance: prometheus
+
+  - job_name: pushgateway
+    static_configs:
+      - targets: ['localhost:9091']
+        labels:
+          instance: pushgateway
+
+```
 
 把smokeping采集的数据通过rrdtool读取之后，按照一定的格式推送到prometheus的gateway，时间间隔是1分钟
 
@@ -66,6 +101,12 @@ crontab -e
 
 
 >> （3）grafana
+
+安装
+```
+wget https://dl.grafana.com/oss/release/grafana-6.1.6-1.x86_64.rpm 
+sudo yum localinstall grafana-6.1.6-1.x86_64.rpm 
+```
 
 将模板grafana/ping_monitor.json 导入grafana即可，效果大概是这样
 
