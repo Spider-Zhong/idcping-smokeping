@@ -4,6 +4,7 @@ IDC机房测速工具，由3个组件组成：
 smokeping：主要负责采集数据  
 prometheus：主要负责存储数据  
 grafana：主要负责展现数据  
+smokeping采集数据之后存储到rrd文件，然后通过脚本把数据提取出来，格式化之后发送到prometheus，然后通过grafana展示出来
 
 使用环境: Centos7 python2.7
 > 二、使用
