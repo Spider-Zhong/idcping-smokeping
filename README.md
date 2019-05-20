@@ -76,7 +76,7 @@ scrape_configs:
 ```
 
 把smokeping采集的数据通过rrdtool读取之后，按照一定的格式推送到prometheus的gateway，时间间隔是1分钟
-
+Ps: 请务必检查运行环境 模块是否安装  requests rrdtool
 ```
 cp /tmp/idc_ping_monitor/prometheus/collection_to_prometheus.py $smokeping_home_dir
 touch /tmp/smoking_pushgateway.log
