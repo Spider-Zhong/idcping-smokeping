@@ -1,0 +1,133 @@
+*** General ***
+
+owner = Peter Random
+contact = some@address.nowhere
+mailhost = my.mail.host
+sendmail = /usr/sbin/sendmail
+# NOTE: do not put the Image Cache below cgi-bin
+# since all files under cgi-bin will be executed ... this is not
+# good for images.
+imgcache = /opt/smokeping/htdocs/cache
+imgurl = cache
+datadir = /opt/smokeping/htdocs/data
+piddir = /opt/smokeping/htdocs/var
+cgiurl = http://some.url/smokeping.cgi
+smokemail = /opt/smokeping/etc/smokemail.dist
+tmail = /opt/smokeping/etc/tmail.dist
+# specify this to get syslog logging
+syslogfacility = local0
+# each probe is now run in its own process
+# disable this to revert to the old behaviour
+# concurrentprobes = no
+
+*** Alerts ***
+to = alertee@address.somewhere
+from = smokealert@company.xy
+
++someloss
+type = loss
+# in percent
+pattern = >0%,*12*,>0%,*12*,>0%
+comment = loss 3 times  in a row
+
+*** Database ***
+
+step     = 60
+pings    = 20
+
+# consfn mrhb steps total
+
+AVERAGE  0.5   1  1008
+AVERAGE  0.5  12  4320
+    MIN  0.5  12  4320
+    MAX  0.5  12  4320
+AVERAGE  0.5 144   720
+    MAX  0.5 144   720
+    MIN  0.5 144   720
+
+*** Presentation ***
+
+charset = utf-8
+template = /opt/smokeping/etc/basepage.html.dist
+
++ charts
+
+menu = 排行榜
+title = 排行榜
+
+++ stddev
+sorter = StdDev(entries=>4)
+title = 综合指数排行
+menu = 综合指数排行
+format = 综合指数 %f
+
+++ max
+sorter = Max(entries=>5)
+title = 最大延迟排行
+menu = 最大延迟排行
+format = 最大延迟时间 %f 秒
+
+++ loss
+sorter = Loss(entries=>5)
+title = 丢包率排行
+menu = 丢包率排行
+format = 丢包 %f
+
+++ median
+sorter = Median(entries=>5)
+title = 平均延迟排行
+menu = 平均延迟排行
+format = 平均延迟 %f 秒
+
++ overview
+
+width = 860
+height = 150
+range = 10h
+
++ detail
+
+width = 860
+height = 200
+unison_tolerance = 2
+
+"Last 3 Hours"    3h
+"Last 30 Hours"   30h
+"Last 10 Days"    10d
+"Last 30 Days"   30d
+"Last 90 Days"   90d
+#+ hierarchies
+#++ owner
+#title = Host Owner
+#++ location
+#title = Location
+
+*** Probes ***
+
++ FPing
+
+binary = /usr/sbin/fping
+
+*** Slaves ***
+secrets=/opt/smokeping/etc/smokeping_secrets.dist
++boomer
+display_name=boomer
+color=0000ff
+
++slave2
+display_name=another
+color=00ff00
+
+*** Targets ***
+
+probe = FPing
+
+menu = Top
+title = IDC网络节点质量监控
+remark = Smokeping 网络质量监控系统
+
+
+@include /opt/smokeping/etc/location/telcom
+@include /opt/smokeping/etc/location/unicom
+@include /opt/smokeping/etc/location/cmcc
+@include /opt/smokeping/etc/location/tencent
