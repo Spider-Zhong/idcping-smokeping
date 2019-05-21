@@ -84,10 +84,9 @@ def getMonitorData(rrd_file):
 
 
 if __name__ == '__main__':
-    data_dir = '/opt/smokeping/htdocs/data/'
     ISP_list = ['TELCOM' , 'CMCC' , 'UNICOM' , 'TENCENT']
     for ISP in ISP_list:
-        rrd_data_dir = os.path.join(data_dir, ISP)
+        rrd_data_dir = os.path.join(paras["data_dir"], ISP)
         for filename in os.listdir(rrd_data_dir):
             (instance , postfix) = os.path.splitext(filename)
             if postfix == '.rrd' :
