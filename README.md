@@ -29,7 +29,7 @@ smokeping_home_dir=/opt/smokeping
 
 ```
 cd $smokeping_home_dir/etc
-cp -rf /tmp/idcping-smokeping/smokeping/location/* ./
+cp -rf /tmp/idcping-smokeping/smokeping/* ./
 ```
 监测点主要由国内的三大运营商的IP站点组成，也可以自定义需要检测的站点
 
