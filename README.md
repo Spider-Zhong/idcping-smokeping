@@ -11,11 +11,11 @@ smokeping采集数据之后存储到rrd文件，然后通过脚本把数据提�
 
 ```
 cd /tmp
-git https://github.com/Spider-Zhong/idc_ping_monitor.git
+git clone https://github.com/Spider-Zhong/idcping-smokeping.git
 ```
 
 >> （1）smokeping
-安装：
+安装单机版：
 ```
 cd /tmp && wget -N --no-check-certificate https://raw.githubusercontent.com/ILLKX/smokeping-onekey/master/smokeping.sh && bash smokeping.sh
 ```
@@ -29,7 +29,7 @@ smokeping_home_dir=/opt/smokeping
 
 ```
 cd $smokeping_home_dir/etc
-cp -rf /tmp/idc_ping_monitor/smokeping/location/* ./
+cp -rf /tmp/idcping-smokeping/smokeping/location/* ./
 ```
 监测点主要由国内的三大运营商的IP站点组成，也可以自定义需要检测的站点
 
@@ -43,7 +43,7 @@ bash /tmp/smokeping.sh
 >> （2）安装prometheus pushgateway
 ```
 curl -s https://packagecloud.io/install/repositories/prometheus-rpm/release/script.rpm.sh | sudo bash
-yum -y install prometheus2 pushgateway
+yum -y install prometheus2 pushgateway python python-pip python-rrdtool
 systemctl status prometheus
 systemctl start prometheus
 systemctl start pushgateway
@@ -79,7 +79,8 @@ scrape_configs:
 把smokeping采集的数据通过rrdtool读取之后，按照一定的格式推送到prometheus的gateway，时间间隔是1分钟
 Ps: 请务必检查运行环境 模块是否安装  requests rrdtool
 ```
-cp /tmp/idc_ping_monitor/prometheus/collection_to_prometheus.py $smokeping_home_dir
+pip install requests
+cp /tmp/idcping-smokeping/prometheus/collection_to_prometheus.py $smokeping_home_dir
 touch /tmp/smoking_pushgateway.log
 ```
 
