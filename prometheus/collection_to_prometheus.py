@@ -8,8 +8,8 @@ import logging.handlers
 
 paras = {
     'province_map' : {
-	    'foshan'	: '佛山' ,
-	    'nanning'	: '南宁' ,
+	'foshan'	: '佛山' ,
+	'nanning'	: '南宁' ,
         'anhui'         : '安徽' ,
         'beijing'       : '北京' ,
         'chongqing'     : '重庆' ,
@@ -90,6 +90,6 @@ if __name__ == '__main__':
         for filename in os.listdir(rrd_data_dir):
             (instance , postfix) = os.path.splitext(filename)
             if postfix == '.rrd' :
-                (lost_package_num , rrt) = getMonitorData(os.path.join(data_dir , ISP , filename))
+                (lost_package_num , rrt) = getMonitorData(os.path.join(paras["data_dir"] , ISP , filename))
                 pushMetrics(instance , ISP , 'rrt' , rrt)
                 pushMetrics(instance , ISP , 'lost_package_num' , lost_package_num)
